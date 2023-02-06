@@ -34,9 +34,7 @@ public class Caesar implements Encryption {
             if (character != ' ') {
                 int position = character - 'a';
                 int newPosition = ((position - offset) % 26);
-                if (newPosition < 0) {
-                    newPosition = 26 + newPosition;
-                }
+                if (newPosition < 0) newPosition += 26;
                 char newCharacter = (char) ('a' + newPosition);
                 result.append(newCharacter);
             } else {
