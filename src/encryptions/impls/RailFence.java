@@ -22,22 +22,47 @@ public class RailFence implements Encryption {
         storage = new char[key][message.length()];
 
         for (char character : message.toCharArray()){
-            if (row == 0 || row == key-1)
-                trend = !trend;
+            if (row == 0 || row == key-1) trend = !trend;
             storage[row][col++] = character;
             row = trend ? row + 1 : row - 1;
         }
 
         for (int i = 0; i < key; i++)
             for (int j = 0; j < message.length(); j++){
-                if (storage[i][j] != '\u0000')
-                    result.append(storage[i][j]);
+                if (storage[i][j] != '\u0000') result.append(storage[i][j]);
             }
         return result;
     }
 
     @Override
-    public StringBuilder decoder(String str) {
-        return null;
+    public StringBuilder decoder(String message) {
+        StringBuilder result = new StringBuilder();
+        storage = new char[key][message.length()];
+
+        boolean trend = false;
+        int row = 0, col = 0;
+
+        for (char iterator : message.toCharArray()) {
+            if (row == 0 || row == key-1) trend = !trend;
+            storage[row][col++] = '*';
+            row = trend ? row + 1 : row - 1;
+        }
+
+        int ind = 0;
+        for (int i = 0; i < key; i++){
+            for (int j = 0; j < message.length(); j++) {
+                if (storage[i][j] == '*') storage[i][j] = message.charAt(ind++);
+            }
+        }
+
+        trend = false;
+        row = 0;col = 0;
+
+        for (char iterator : message.toCharArray()) {
+            if (row == 0 || row == key-1) trend = !trend;
+            result.append(storage[row][col++]);
+            row = trend ? row + 1 : row - 1;
+        }
+        return result;
     }
 }
