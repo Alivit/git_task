@@ -22,7 +22,7 @@ public class Caesar implements Encryption {
                 result.append(newCharacter);
             } else if(character >= 'A' && character <= 'Z') {
                 int position = character - 'A';
-                int newPosition = (position + offset) % 32;
+                int newPosition = (position + offset) % 26;
                 char newCharacter = (char) ('A' + newPosition);
                 result.append(newCharacter);
             } else if(character >= 'à' && character <= 'ÿ') {
@@ -55,25 +55,19 @@ public class Caesar implements Encryption {
             }else if (character >= 'A' && character <= 'Z') {
                 int position = character - 'A';
                 int newPosition = ((position - offset) % 26);
-                if (newPosition < 0) {
-                    newPosition = 26 + newPosition;
-                }
+                if (newPosition < 0) newPosition += 26;
                 char newCharacter = (char) ('A' + newPosition);
                 result.append(newCharacter);
             } else if (character >= 'à' && character <= 'ÿ') {
                 int position = character - 'à';
                 int newPosition = ((position - offset) % 32);
-                if (newPosition < 0) {
-                    newPosition = 32 + newPosition;
-                }
+                if (newPosition < 0) newPosition += 32;
                 char newCharacter = (char) ('à' + newPosition);
                 result.append(newCharacter);
             } else if (character >= 'À' && character <= 'ß') {
                 int position = character - 'À';
                 int newPosition = ((position - offset) % 32);
-                if (newPosition < 0) {
-                    newPosition = 32 + newPosition;
-                }
+                if (newPosition < 0) newPosition += 32;
                 char newCharacter = (char) ('À' + newPosition);
                 result.append(newCharacter);
             } else {

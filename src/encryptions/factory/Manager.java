@@ -11,7 +11,6 @@ public class Manager {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Выберите Алгоритм Шифрования:");
         System.out.println("1)Цезарь");
-        System.out.println("2)Железное огрождение");
         System.out.println("0)Выход");
         System.out.println("Введите число:");
         int answer = scanner.nextInt();
