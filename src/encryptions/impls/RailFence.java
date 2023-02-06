@@ -1,8 +1,9 @@
-package encryptions.missed;
+package encryptions.impls;
 
 import encryptions.interf.Encryption;
 
-public class MissedEncryption implements Encryption {
+public class RailFence implements Encryption {
+
     @Override
     public StringBuilder encoder(String str) {
         return null;
