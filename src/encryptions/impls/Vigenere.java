@@ -59,7 +59,44 @@ public class Vigenere implements Encryption {
     }
 
     @Override
-    public StringBuilder decoder(String str) {
-        return null;
+    public StringBuilder decoder(String message) {
+        StringBuilder result = new StringBuilder();
+        char[] output = new char[message.length()];
+
+        int bias = 0;
+        Map<Integer, Integer> numKey = new TreeMap<>();
+        for (int i = 0; i < key.length(); i++) {
+            //возвращает символ по заданному индексу внутри строки
+            int position = key.charAt(i);
+            //¬озвращает логическое значение true, если вызывающий словарь содержит значение value
+            int asciiWithBias = numKey.containsValue(position + bias)
+                    ? position + ++bias : position + bias;
+            //ƒобавление новой пары в Map
+            numKey.put(i, asciiWithBias);
+        }
+
+        Map<Integer, Integer> indexesByAscii = new TreeMap<>();
+        numKey.forEach((key, value) -> indexesByAscii.put(value, key));
+
+        int messageIndex = 0;
+        int step = 0;
+
+        for (int i = 0; i < message.length() / key.length() + message.length() % key.length(); i++) {
+            //получать доступ к запис€м на карте
+            //entrySet возвращает Set, содержащий записи Map.  аждый из этих элементов €вл€етс€ объектом Map
+            for (Map.Entry<Integer, Integer> indexByAscii : indexesByAscii.entrySet()) {
+                if (messageIndex > message.length() - 1) {
+                    break;
+                }
+                if (indexByAscii.getValue() + step >= message.length()) {
+                    continue;
+                }
+                //символ, расположенный по указанному индексу строки
+                output[indexByAscii.getValue() + step] = message.charAt(messageIndex++);
+            }
+            step += key.length();
+        }
+        result =new StringBuilder(String.valueOf(output));
+        return result;
     }
 }
